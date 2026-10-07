@@ -102,6 +102,10 @@ footer .wrap{padding-block:18px;display:flex;justify-content:space-between;flex-
 @media (max-width:900px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){.g2,.g3,.stats,.links{grid-template-columns:1fr}.flow .arrow{display:none}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.card.prompt pre{margin:0;white-space:pre-wrap;font:15px/1.5 ui-monospace,Menlo,monospace;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.card.prompt a{color:var(--blue)}
+.card.prompt button{justify-self:start;font:700 15px var(--body);background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:10px 20px;cursor:pointer}
+.card.prompt .hint{font-size:14px}
 </style>
 </head>
 <body>
@@ -265,6 +269,16 @@ footer .wrap{padding-block:18px;display:flex;justify-content:space-between;flex-
 <div class="step">Einsatz<small>Feedback der Schüler fließt zurück</small></div>
 </div>
 <div class="card sun"><h3>Selbst ausprobieren</h3><ul><li>Ein echtes Problem aus dem eigenen Alltag wählen, z. B. ein Trainingstagebuch</li><li>Erst beschreiben, was es können soll</li><li>Klein starten, testen, nachbessern</li></ul></div>
+<div class="card prompt">
+<span class="tag">Zum Mitnehmen</span>
+<h3>Ihr eigenes Lastenheft mit Claude</h3>
+<p>Auf <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> einen Chat öffnen, den Text einfügen und die Klammer durch Ihr Problem ersetzen. Sprechen geht auch: Mikrofon-Symbol antippen und diktieren.</p>
+<pre id="prompt-text">Ich bin Lehrkraft und möchte ein kleines Werkzeug für meinen Alltag. Mein Problem: [HIER BESCHREIBEN].
+Stell mir zuerst bis zu drei Rückfragen. Schreib dann ein Lastenheft von höchstens einer halben Seite: Ziel, wer es nutzt, 3–5 Funktionen, die es können muss, und was es nicht können soll. Keine Schülerdaten.
+Danach bau einen einfachen Entwurf zum Anklicken als Artefakt, eine Seite, auf Deutsch.</pre>
+<button type="button" id="prompt-copy">Text kopieren</button>
+<p class="hint">Bitte keine echten Namen oder Noten von Schülern eingeben. Erst testen, dann nachbessern: „Füge … hinzu“, „Mach … einfacher“.</p>
+</div>
 </section>
 
 <section id="ausblick">
@@ -294,5 +308,13 @@ footer .wrap{padding-block:18px;display:flex;justify-content:space-between;flex-
 </div></main>
 
 <footer><div class="wrap"><span>Guy Putz · Lycée Technique d’Ettelbruck · guy.putz@ltett.lu</span><span>Stand Oktober 2026</span></div></footer>
+<script>
+document.getElementById('prompt-copy').addEventListener('click',function(){
+  var b=this,t=document.getElementById('prompt-text').textContent;
+  var done=function(){b.textContent='Kopiert ✓';setTimeout(function(){b.textContent='Text kopieren'},2000)};
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(done,function(){sel()})}else{sel()}
+  function sel(){var r=document.createRange();r.selectNodeContents(document.getElementById('prompt-text'));var w=getSelection();w.removeAllRanges();w.addRange(r);b.textContent='Markiert, jetzt Cmd/Strg + C'}
+});
+</script>
 </body>
 </html>
