@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Werkzeugkiste</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Nunito+Sans:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: lange Leseseite mit fixer Rote-Faden-Leiste oben; Farben aus dem Windmobile-Logo */
+:root{
+  --bg:#F3F7FA; --paper:#FFFFFF; --ink:#0B3A5B; --muted:#36536A; --line:#C5D8E5; --soft:#E2EEF5;
+  --blue:#1478B4; --sun:#F5C400; --sun-ink:#0B3A5B;
+  --display:"Oswald","Arial Narrow",Arial,sans-serif; --body:"Nunito Sans",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0C1B26; --paper:#122635; --ink:#E6EEF4; --muted:#A9BFCF; --line:#24425A; --soft:#173347;
+  --blue:#5BB0E6; --sun:#F5C400; --sun-ink:#0B3A5B; color-scheme:dark}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--body)}
+a{color:var(--blue)}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.1;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:16px}
+
+/* Leiste */
+.bar{position:sticky;top:0;z-index:5;background:#0B3A5B;color:#F3F7FA;border-bottom:1px solid #1478B4}
+.bar .wrap{display:flex;gap:6px;align-items:center;overflow-x:auto;padding-block:10px;white-space:nowrap}
+.bar a{color:#C9DDEB;text-decoration:none;font-weight:700;font-size:14px;padding:6px 12px;border-radius:999px}
+.bar a:hover,.bar a:focus-visible{background:rgba(255,255,255,.12);color:#fff;outline:none}
+.bar .sep{color:var(--sun)}
+
+/* Kopf */
+header.hero{background:#FFFFFF;color:#0B3A5B;border-bottom:1px solid #C5D8E5}
+header.hero .wrap{padding-block:48px 36px;display:grid;gap:22px}
+.eyebrow{font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:13px;color:#1478B4}
+header.hero h1{font-size:clamp(40px,7vw,72px)}
+header.hero .sub{font-size:clamp(18px,2.4vw,24px);color:#36536A;max-width:42ch}
+.logos{display:flex;gap:28px;align-items:center;flex-wrap:wrap;border-top:2px solid #C5D8E5;padding-top:18px}
+.logos img{height:64px;width:auto}
+.facts{display:flex;flex-wrap:wrap;gap:10px}
+.pill{background:#E2EEF5;color:#0B3A5B;border-radius:999px;padding:6px 14px;font-weight:700;font-size:14px}
+
+main .wrap{display:grid;gap:56px;padding-block:48px 72px}
+section{display:grid;gap:20px}
+section > h2{font-size:clamp(30px,4.4vw,44px)}
+.kicker{font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:var(--blue)}
+.lead{font-size:19px;color:var(--muted);max-width:68ch}
+
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:grid;gap:8px;align-content:start;min-width:0}
+.card h3{font-size:24px}
+.card p,.card li{color:var(--muted)}
+.card ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.card.dark{background:var(--ink);border-color:var(--ink)}
+.card.dark h3{color:#F3F7FA}.card.dark p,.card.dark li{color:#C9DDEB}
+@media (prefers-color-scheme:dark){.card.dark{background:#1478B4;border-color:#1478B4}}
+.card.sun{background:var(--sun);border-color:var(--sun)}
+.card.sun h3,.card.sun p,.card.sun li{color:var(--sun-ink)}
+.card .tag{font-weight:800;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue)}
+.card.dark .tag{color:var(--sun)}
+
+.flow{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap}
+.flow .step{flex:1 1 180px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-weight:700}
+.flow .step small{display:block;font-weight:600;color:var(--muted)}
+.flow .arrow{align-self:center;color:var(--sun);font-size:26px;font-weight:800}
+
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.stat{background:var(--ink);color:#F3F7FA;border-radius:14px;padding:20px 22px}
+.stat b{display:block;font-family:var(--display);font-size:clamp(40px,6vw,60px);line-height:1;color:var(--sun)}
+.stat span{color:#C9DDEB}
+@media (prefers-color-scheme:dark){.stat{background:var(--paper);border:1px solid var(--line)}}
+
+.table-wrap{overflow-x:auto;background:var(--paper);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:16px}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.t{white-space:nowrap;font-weight:800;color:var(--blue);font-variant-numeric:tabular-nums}
+tr.block td{background:var(--soft);font-weight:800}
+
+.quote{border-left:6px solid var(--sun);background:var(--paper);padding:18px 22px;border-radius:0 12px 12px 0;font-family:var(--display);font-size:clamp(24px,3.6vw,34px);line-height:1.2}
+.quote small{display:block;font-family:var(--body);font-size:15px;color:var(--muted);margin-top:8px}
+
+.links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.links a{display:grid;gap:2px;background:var(--paper);border:1px solid var(--line);border-top:4px solid var(--blue);border-radius:12px;padding:14px 18px;text-decoration:none;color:var(--ink)}
+.links a b{font-family:var(--display);font-size:20px;font-weight:600}
+.links a span{color:var(--muted);font-size:15px}
+.links a:hover,.links a:focus-visible{border-color:var(--blue);outline:none}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+footer .wrap{padding-block:18px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+
+.mit{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:24px;align-items:center}
+.mit .qrbox{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px}
+.mit .qrbox svg{display:block;width:100%;height:auto}
+.btn{display:inline-block;background:var(--sun);color:#0B3A5B;font-weight:800;text-decoration:none;border-radius:999px;padding:12px 22px}
+.btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+@media (max-width:620px){.mit{grid-template-columns:1fr}.mit .qrbox{max-width:220px}}
+@media (max-width:900px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.g2,.g3,.stats,.links{grid-template-columns:1fr}.flow .arrow{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.card.prompt pre{margin:0;white-space:pre-wrap;font:15px/1.5 ui-monospace,Menlo,monospace;background:var(--soft);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.card.prompt a{color:var(--blue)}
+.card.prompt button{justify-self:start;font:700 15px var(--body);background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:10px 20px;cursor:pointer}
+.card.prompt .hint{font-size:14px}
+</style><style>
+.tool{display:grid;gap:10px}
+.tool .go{justify-self:start;font-weight:800;text-decoration:none;background:var(--ink);color:var(--paper);border-radius:999px;padding:9px 18px;font-size:15px}
+.tool .meta{font-size:14px;color:var(--muted)}
+.tool .meta b{color:var(--ink)}
+.priv .go{background:var(--muted)}
+footer{border-top:1px solid var(--line)}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-block:18px;color:var(--muted);font-size:14px}
+@media (max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="bar" aria-label="Navigation"><div class="wrap"><a href="./">← Zur Fortbildung</a><span class="sep">›</span><a href="#schule">Schule</a><a href="#privat">Alltag</a><a href="#selbst">Selbst ausprobieren</a></div></nav>
+<header class="hero"><div class="wrap">
+<p class="eyebrow">Werkzeugkiste · gebaut mit Claude</p>
+<h1>Kleine Probleme, eigene Werkzeuge</h1>
+<p class="sub">Jedes Werkzeug hier begann mit einem konkreten Problem und einer Beschreibung, was es können soll. Programmiert hat Claude, getestet und verbessert haben wir.</p>
+</div></header>
+<main><div class="wrap">
+<section id="schule"><p class="kicker">Im Unterricht</p><h2>Werkzeuge für die Schule</h2>
+<div class="grid g2"><div class="card tool "><span class="tag">Für Schüler</span><h3>Messwerte → Excel</h3>
+<p><b>Problem:</b> Messtabellen vom Laborversuch abtippen kostet Zeit und bringt Fehler.</p><p class="meta">Foto der handschriftlichen Tabelle hochladen, korrigieren, als Excel-Datei herunterladen. Ziffernerkennung läuft im Browser, nichts wird hochgeladen.</p>
+<a class="go" href="https://pugu-prog.github.io/messwerte-excel/" target="_blank" rel="noopener">Ausprobieren ↗</a></div><div class="card tool "><span class="tag">Für Schüler und Lehrer</span><h3>PPREN-Projektplaner</h3>
+<p><b>Problem:</b> Bewertungspunkte, Wochenberichte und Feedback lagen verstreut.</p><p class="meta">Projektplan, Gantt, Wochenbericht, Bewertung an einem Ort. Seit Schuljahresbeginn im Einsatz, mit Anmeldung für Schüler und Lehrer der GSE.</p>
+<a class="go" href="https://pugu-prog.github.io/ppren/" target="_blank" rel="noopener">Öffnen ↗</a></div><div class="card tool "><span class="tag">Für die Sektion</span><h3>GSE-Website</h3>
+<p><b>Problem:</b> Die Sektion brauchte eine Seite mit allen Projekten, die Kollegen leicht ergänzen können.</p><p class="meta">Projekte nach Themen, ein Formular für Kollegen ohne Claude-Konto.</p>
+<a class="go" href="https://gse-ltett-sektioun.pages.dev/" target="_blank" rel="noopener">Öffnen ↗</a></div><div class="card tool "><span class="tag">Für Partner</span><h3>Windmobile Workshoptag</h3>
+<p><b>Problem:</b> Ein Erasmus-Besuch braucht ein Programm, das alle Partner sehen.</p><p class="meta">Ablauf, Stationen und Gruppen auf einer Seite, auf Englisch.</p>
+<a class="go" href="https://pugu-prog.github.io/windmobile-erasmus/" target="_blank" rel="noopener">Öffnen ↗</a></div></div></section>
+<section id="privat"><p class="kicker">Im Alltag</p><h2>Dasselbe Prinzip, privat</h2>
+<p class="lead">Der beste Einstieg ist ein eigenes, kleines Problem. So sind die ersten Werkzeuge entstanden.</p>
+<div class="grid g2"><div class="card tool priv"><span class="tag">Hobby</span><h3>Trainingsfeedback Laufen</h3>
+<p><b>Problem:</b> Eine Excel-Vorlage für die Laufgruppe war am Handy kaum zu benutzen.</p><p class="meta">Dieselben Berechnungen wie im Excel, im Browser, mit Import aus Uhr-Screenshots.</p>
+<a class="go" href="https://pugu-prog.github.io/lafen-feedback/" target="_blank" rel="noopener">Öffnen ↗</a></div><div class="card tool priv"><span class="tag">Familie</span><h3>Rezeptbuch</h3>
+<p><b>Problem:</b> Familienrezepte lagen auf Zetteln und in Nachrichten.</p><p class="meta">Jeder in der Familie trägt Rezepte über Claude ein, die Seite baut sich selbst.</p>
+<a class="go" href="https://pugu-prog.github.io/rezeptbuch/" target="_blank" rel="noopener">Öffnen ↗</a></div></div></section>
+<section id="selbst"><p class="kicker">Selbst ausprobieren</p><h2>So fangen Sie an</h2>
+<div class="flow"><div class="step">1 · Problem<small>aus dem eigenen Alltag</small></div><div class="step">2 · Beschreiben<small>Wer nutzt es, was muss es können?</small></div><div class="step">3 · Bauen lassen<small>Claude macht einen ersten Entwurf</small></div><div class="step">4 · Testen<small>und Schritt für Schritt verbessern</small></div></div>
+<p class="lead">Den fertigen Text zum Kopieren gibt es auf der <a href="./#ki">Seite zur Fortbildung</a>.</p></section>
+</div></main>
+<footer><div class="wrap"><span>Guy Putz · Lycée Technique d’Ettelbruck</span><span>Stand Oktober 2026</span></div></footer>
+</body></html>
